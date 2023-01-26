@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] 
-    private float MoveSpeed;
+    private float moveSpeed;
     [SerializeField]
-    private float RotationSpeed;
+    private float rotationSpeed;
     [SerializeField]
-    public Camera MainCam;
+    public Camera mainCam;
 
     Vector2 moveInput;
     Rigidbody2D rb2D;
@@ -25,18 +25,26 @@ public class PlayerController : MonoBehaviour
     {
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
-        MainCam.transform.position = new Vector3(MainCam.transform.position.x, transform.position.y, MainCam.transform.position.z);
+        mainCam.transform.position = new Vector3(mainCam.transform.position.x, transform.position.y, mainCam.transform.position.z);
     }
 
     private void FixedUpdate()
     {
-        rb2D.velocity = -1 * transform.up * Mathf.Clamp01(moveInput.y) * Time.deltaTime * MoveSpeed;
+        rb2D.velocity = -1 * transform.up * Mathf.Clamp01(moveInput.y) * Time.deltaTime * moveSpeed;
         RotatePlayer();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("CannonBallEnemy"))
+        {
+            Destroy(gameObject, 0.1f);
+        }
     }
 
     private void RotatePlayer()
     {
-        float rotation = -moveInput.x * RotationSpeed;
+        float rotation = -moveInput.x * rotationSpeed;
         transform.Rotate(Vector3.forward * rotation);
     }
 }

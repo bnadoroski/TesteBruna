@@ -5,14 +5,17 @@ using UnityEngine;
 public class Cannon : MonoBehaviour
 {
     [SerializeField] 
-    Transform TransformSpawnBall;
+    Transform transformSpawnBall;
     [SerializeField] 
-    Transform[] TransformSpawnSpecialBallLeft;
+    List<Transform> transformSpawnSpecialBallLeft;
     [SerializeField]
-    Transform[] TransformSpawnSpecialBallRight;
+    List<Transform> transformSpawnSpecialBallRight;
     [SerializeField]
-    GameObject CannonBall;
+    GameObject cannonBall;
+    [SerializeField]
+    float fireRate;
 
+    float nextFireTime;
     // Update is called once per frame
     void Update()
     {
@@ -23,25 +26,30 @@ public class Cannon : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            CannonBall.GetComponent<CannonBall>().Shoot(Vector3.right);
-            Instantiate(CannonBall, TransformSpawnBall.position, transform.rotation);
+            if (nextFireTime < Time.time)
+            {
+                cannonBall.GetComponent<CannonBall>().Shoot(Vector3.right);
+                Instantiate(cannonBall, transformSpawnBall.position, transform.rotation);
+                nextFireTime = Time.time + fireRate;
+            }
+
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            foreach (Transform spawn in TransformSpawnSpecialBallRight)
+            foreach (Transform spawn in transformSpawnSpecialBallRight)
             {
-                CannonBall.GetComponent<CannonBall>().Shoot(Vector3.down);
-                Instantiate(CannonBall, spawn.position, transform.rotation);
+                cannonBall.GetComponent<CannonBall>().Shoot(Vector3.down);
+                Instantiate(cannonBall, spawn.position, transform.rotation);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            foreach (Transform spawn in TransformSpawnSpecialBallLeft)
+            foreach (Transform spawn in transformSpawnSpecialBallLeft)
             {
-                CannonBall.GetComponent<CannonBall>().Shoot(Vector3.up);
-                Instantiate(CannonBall, spawn.position, transform.rotation);
+                cannonBall.GetComponent<CannonBall>().Shoot(Vector3.up);
+                Instantiate(cannonBall, spawn.position, transform.rotation);
             }
         }
     }

@@ -5,33 +5,33 @@ using UnityEngine;
 public class MoveBackground : MonoBehaviour
 {
     [SerializeField]
-    public float Speed;
+    public float speed;
 
-    private Material CurrentMaterial;
-    private float Offset;
-    private bool OffsetLimitReached = false;
+    private Material currentMaterial;
+    private float offset;
+    private bool offsetLimitReached = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        CurrentMaterial = GetComponent<Renderer>().material;
+        currentMaterial = GetComponent<Renderer>().material;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!OffsetLimitReached)
+        if (!offsetLimitReached)
         {
-            Offset += 0.001f;
-            OffsetLimitReached = Offset >= 0.1f;
+            offset += 0.001f;
+            offsetLimitReached = offset >= 0.1f;
         }
         else
         {
-            Offset -= 0.001f; 
-            OffsetLimitReached = !(Offset <= 0.001f);
+            offset -= 0.001f; 
+            offsetLimitReached = !(offset <= 0.001f);
         }
 
-        CurrentMaterial.SetTextureOffset("_MainTex", new Vector2(Offset * Speed, Offset * Speed));
+        currentMaterial.SetTextureOffset("_MainTex", new Vector2(offset * speed, offset * speed));
     }
 
 }

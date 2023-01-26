@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class CannonBall : MonoBehaviour
 {
-    [SerializeField] float Speed;
-
+    [SerializeField] float speed;
     public Vector3 shootDirection;
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(shootDirection * Time.deltaTime * Speed);
-        print("c " + shootDirection);
+        transform.Translate(shootDirection * Time.deltaTime * speed);
     }
 
     public void Shoot(Vector3 changeShootDirection)
     {
-        print("a " + Vector3.down);
         shootDirection = new Vector3(changeShootDirection.x, changeShootDirection.y, changeShootDirection.z);
-        print("b " + shootDirection);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
