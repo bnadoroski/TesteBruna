@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("CannonBallEnemy"))
+        if (collision.CompareTag("CannonBallEnemy") || collision.CompareTag("EnemyChaser"))
         {
             Destroy(gameObject, 0.1f);
         }

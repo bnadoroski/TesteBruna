@@ -8,6 +8,9 @@ TagManager:
   - CannonBall
   - EnemyCannon
   - CannonBallEnemy
+  - EnemyChaser
+  - EnemyRespawn
+  - Isle
   layers:
   - Default
   - TransparentFX
