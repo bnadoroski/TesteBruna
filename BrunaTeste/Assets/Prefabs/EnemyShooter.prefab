@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4387963223416573209}
   - component: {fileID: 4387963223416573211}
   - component: {fileID: 4387963223416573208}
+  - component: {fileID: 3446923770516320149}
   m_Layer: 0
   m_Name: EnemyShooter
   m_TagString: Enemy
@@ -100,10 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1c3844a80fb1a440a065fbbb2093d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 50
   shootingRange: 3
   rotationModifier: -90
   enemyCannon: {fileID: 4387963224959906701}
+  nextWayPointDistance: 2
 --- !u!70 &4387963223416573211
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -128,19 +130,47 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4387963223416573212}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1.5
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3446923770516320149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4387963223416573212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &4387963224959906701
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@ public class SpawnEnemiesManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         InvokeRepeating("SpawnShooterEnemies", shooterSpawnTimer, shooterSpawnTimer);
-        InvokeRepeating("SpawnChaserEnemies", chaserSpawnTimer, chaserSpawnTimer);
+        //InvokeRepeating("SpawnChaserEnemies", chaserSpawnTimer, chaserSpawnTimer);
     }
 
     void SpawnShooterEnemies()
@@ -36,12 +36,12 @@ public class SpawnEnemiesManager : MonoBehaviour
         }
     }
 
-    void SpawnChaserEnemies()
-    {
-        if (player != null)
-        {
-            int index = Random.Range(0, spawnPointsChasers.Count);
-            Instantiate(chaser, spawnPointsChasers[index].position, Quaternion.identity);
-        }
-    }
+    //void SpawnChaserEnemies()
+    //{
+    //    if (player != null)
+    //    {
+    //        int index = Random.Range(0, spawnPointsChasers.Count);
+    //        Instantiate(chaser, spawnPointsChasers[index].position, Quaternion.identity);
+    //    }
+    //}
 }
