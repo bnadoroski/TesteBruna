@@ -8,13 +8,15 @@ public class MoveBackground : MonoBehaviour
     public float speed;
 
     private Material currentMaterial;
+    private GameObject background;
     private float offset;
     private bool offsetLimitReached = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentMaterial = GetComponent<Renderer>().material;
+        background = GameObject.FindGameObjectWithTag("Background");
+        currentMaterial = background.GetComponent<Renderer>().material;
     }
 
     // Update is called once per frame

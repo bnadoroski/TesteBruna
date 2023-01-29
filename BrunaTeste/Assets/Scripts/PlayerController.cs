@@ -8,8 +8,6 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed;
     [SerializeField]
     private float rotationSpeed;
-    [SerializeField]
-    public Camera mainCam;
 
     Vector2 moveInput;
     Rigidbody2D rb2D;
@@ -25,7 +23,6 @@ public class PlayerController : MonoBehaviour
     {
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
-        mainCam.transform.position = new Vector3(mainCam.transform.position.x, transform.position.y, mainCam.transform.position.z);
     }
 
     private void FixedUpdate()

@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class IsleController : MonoBehaviour
 {
+    private Renderer isleRenderer;
+    private bool hasAppeared = false;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Start()
     {
-        if(collision.CompareTag("Player"))
-            Destroy(collision.gameObject, 0.1f);
+        isleRenderer = GetComponentInChildren<Renderer>();
+    }
+
+    private void LateUpdate()
+    {
+        if (isleRenderer.isVisible)
+            hasAppeared = true;
+        if (!isleRenderer.isVisible && hasAppeared)
+            Destroy(gameObject);
     }
 }

@@ -14,6 +14,8 @@ public class EnemyShooterController : MonoBehaviour
     [SerializeField]
     GameObject enemyCannon;
     [SerializeField]
+    GameObject enemyGraphic;
+    [SerializeField]
     float nextWayPointDistance = 3f;
     Path path;
     int currentWayPoint = 0;
@@ -22,7 +24,6 @@ public class EnemyShooterController : MonoBehaviour
     Rigidbody2D rb;
     Transform target;
 
-    // Start is called before the first frame update
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -56,10 +57,10 @@ public class EnemyShooterController : MonoBehaviour
 
         if (target != null)
         {
-            Vector3 vectorToTarget = target.transform.position - transform.position;
+            Vector3 vectorToTarget = target.transform.position - enemyGraphic.transform.position;
             float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - rotationModifier;
             Quaternion quaternion = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = Quaternion.Slerp(transform.rotation, quaternion, Time.deltaTime * speed);
+            enemyGraphic.transform.rotation = Quaternion.Slerp(enemyGraphic.transform.rotation, quaternion, Time.deltaTime * speed);
 
             float distanceFromPlayer = 0;
             if (currentWayPoint < path.vectorPath.Count)
@@ -77,17 +78,16 @@ public class EnemyShooterController : MonoBehaviour
                     enemyCannon.GetComponent<EnemyCannon>().EnemyShoot();
                 }
             }
+            else
+            {
+                return;
+            }
 
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
 
             if (distance < nextWayPointDistance)
             {
                 currentWayPoint++;
-            }
-
-            if (distanceFromPlayer < shootingRange)
-            {
-                enemyCannon.GetComponent<EnemyCannon>().EnemyShoot();
             }
         }
     }

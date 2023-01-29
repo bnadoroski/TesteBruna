@@ -11,6 +11,8 @@ TagManager:
   - EnemyChaser
   - EnemyRespawn
   - Isle
+  - Background
+  - GameWall
   layers:
   - Default
   - TransparentFX
@@ -18,7 +20,7 @@ TagManager:
   - Isle
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 
