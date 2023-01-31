@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class CannonBall : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] 
+    float speed;
+    [SerializeField] 
+    ParticleSystem effect;
     public Vector3 shootDirection;
 
     // Update is called once per frame
@@ -20,6 +23,7 @@ public class CannonBall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Instantiate(effect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

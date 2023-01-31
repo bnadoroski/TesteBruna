@@ -9,17 +9,23 @@ public class EnemyChaserController : MonoBehaviour
     [SerializeField]
     float speed;
     [SerializeField]
-    float decreaseSpeedZone;
+    float increaseSpeedZone;
     [SerializeField]
     float rotationModifier;
     [SerializeField]
     GameObject enemyGraphic;
     [SerializeField]
+    GameObject explosionEffect;
+    [SerializeField]
     float nextWayPointDistance = 3f;
+    [SerializeField]
+    int maxHealth = 30;
+    [SerializeField]
+    HealthBar healthBar;
 
     Path path;
     int currentWayPoint = 0;
-
+    int currentHealth;
     Seeker seeker;
     Rigidbody2D rb;
     Transform target;
@@ -29,6 +35,8 @@ public class EnemyChaserController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
@@ -65,15 +73,14 @@ public class EnemyChaserController : MonoBehaviour
             float distanceFromPlayer = 0;
             if (currentWayPoint < path.vectorPath.Count)
             {
-                float updateSpeed = speed;
                 distanceFromPlayer = Vector2.Distance(target.transform.position, transform.position);
-                if (distanceFromPlayer <= decreaseSpeedZone)
+                if (distanceFromPlayer <= increaseSpeedZone)
                 {
-                    updateSpeed = speed / 2;
+                    rb.drag = 0;
                 }
-                Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
-                Vector2 force = direction * updateSpeed * Time.deltaTime;
 
+                Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
+                Vector2 force = direction * speed * Time.deltaTime;
                 rb.AddForce(force);
             }
             else
@@ -90,17 +97,28 @@ public class EnemyChaserController : MonoBehaviour
         }
     }
 
+    public void DestroyChaser()
+    {
+        Destroy(gameObject, 0.3f);
+        explosionEffect.GetComponent<EnemiesEffectsController>().EnableEffect();
+        target.GetComponent<PlayerController>().AddScore();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("CannonBall"))
         {
-            Destroy(gameObject, 0.1f);
+            currentHealth = healthBar.TakeDamage(10, currentHealth, gameObject);
+            if(currentHealth <= 0)
+            {
+                DestroyChaser();
+            }
         }
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, decreaseSpeedZone);
+        Gizmos.DrawWireSphere(transform.position, increaseSpeedZone);
     }
 }

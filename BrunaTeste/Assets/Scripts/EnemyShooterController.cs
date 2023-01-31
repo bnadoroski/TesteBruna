@@ -16,10 +16,18 @@ public class EnemyShooterController : MonoBehaviour
     [SerializeField]
     GameObject enemyGraphic;
     [SerializeField]
+    GameObject explosionEffect;
+    [SerializeField]
     float nextWayPointDistance = 3f;
+    [SerializeField]
+    int maxHealth = 30;
+    [SerializeField]
+    HealthBar healthBar;
+
+
     Path path;
     int currentWayPoint = 0;
-
+    int currentHealth;
     Seeker seeker;
     Rigidbody2D rb;
     Transform target;
@@ -29,6 +37,8 @@ public class EnemyShooterController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
@@ -97,7 +107,13 @@ public class EnemyShooterController : MonoBehaviour
 
         if (collision.CompareTag("CannonBall"))
         {
-            Destroy(gameObject, 0.1f);
+            currentHealth = healthBar.TakeDamage(10, currentHealth, gameObject); 
+            if (currentHealth <= 0)
+            {
+                explosionEffect.GetComponent<EnemiesEffectsController>().EnableEffect();
+                Destroy(gameObject, 0.3f);
+                target.GetComponent<PlayerController>().AddScore();
+            }
         }
     }
 

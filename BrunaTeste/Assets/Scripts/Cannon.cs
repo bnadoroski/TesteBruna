@@ -13,10 +13,17 @@ public class Cannon : MonoBehaviour
     [SerializeField]
     GameObject cannonBall;
     [SerializeField]
+    GameObject cannonEffect;
+    [SerializeField]
     float fireRate;
+    [SerializeField]
+    float fireRateSides;
 
     float nextFireTime;
-    // Update is called once per frame
+    float nextFireTimeE;
+    float nextFireTimeSQ;
+
+
     void Update()
     {
         Shoot();
@@ -29,6 +36,7 @@ public class Cannon : MonoBehaviour
             if (nextFireTime < Time.time)
             {
                 cannonBall.GetComponent<CannonBall>().Shoot(Vector3.right);
+                cannonEffect.GetComponent<PlayerEffectsController>().EnableEffect();
                 Instantiate(cannonBall, transformSpawnBall.position, transform.rotation);
                 nextFireTime = Time.time + fireRate;
             }
@@ -37,19 +45,27 @@ public class Cannon : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            foreach (Transform spawn in transformSpawnSpecialBallRight)
+            if (nextFireTimeE < Time.time)
             {
-                cannonBall.GetComponent<CannonBall>().Shoot(Vector3.down);
-                Instantiate(cannonBall, spawn.position, transform.rotation);
+                foreach (Transform spawn in transformSpawnSpecialBallRight)
+                {
+                    cannonBall.GetComponent<CannonBall>().Shoot(Vector3.down);
+                    Instantiate(cannonBall, spawn.position, transform.rotation);
+                    nextFireTimeE = Time.time + fireRateSides;
+                }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            foreach (Transform spawn in transformSpawnSpecialBallLeft)
+            if (nextFireTimeSQ < Time.time)
             {
-                cannonBall.GetComponent<CannonBall>().Shoot(Vector3.up);
-                Instantiate(cannonBall, spawn.position, transform.rotation);
+                foreach (Transform spawn in transformSpawnSpecialBallLeft)
+                {
+                    cannonBall.GetComponent<CannonBall>().Shoot(Vector3.up);
+                    Instantiate(cannonBall, spawn.position, transform.rotation);
+                    nextFireTimeSQ = Time.time + fireRateSides;
+                }
             }
         }
     }

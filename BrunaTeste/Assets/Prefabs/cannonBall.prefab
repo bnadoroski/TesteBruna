@@ -137,4 +137,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  effect: {fileID: 4227897928523823405, guid: 8e1d0458297c5944aa2529d3e7112468, type: 3}
   shootDirection: {x: 1, y: 0, z: 0}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnEnemiesManager : MonoBehaviour
 {
     [SerializeField] 
-    List<Transform> spawnPointsShooters;
+    Transform spawnPointShooters;
     [SerializeField] 
     List<Transform> spawnPointsChasers;
     [SerializeField] 
@@ -18,6 +18,8 @@ public class SpawnEnemiesManager : MonoBehaviour
     float chaserSpawnTimer;
 
     GameObject player;
+    float minWidth = -10f;
+    float maxWidth = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -31,8 +33,8 @@ public class SpawnEnemiesManager : MonoBehaviour
     {
         if (player != null)
         {
-            int index = Random.Range(0, spawnPointsShooters.Count);
-            Instantiate(shooter, spawnPointsShooters[index].position, Quaternion.identity);
+            float spawnPosition = Random.Range(minWidth, maxWidth);
+            Instantiate(shooter, new Vector3(spawnPosition, spawnPointShooters.position.y, spawnPointShooters.position.z), Quaternion.identity); 
         }
     }
 

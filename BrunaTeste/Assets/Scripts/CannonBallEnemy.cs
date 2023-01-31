@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class CannonBallEnemy : MonoBehaviour
 {
-    GameObject target;
-    [SerializeField] float speed;
-    Rigidbody2D cannonBallRb2d;
+    [SerializeField]
+    ParticleSystem effect;
+    [SerializeField] 
+    float speed;
 
+    Rigidbody2D cannonBallRb2d;
+    GameObject target;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +22,7 @@ public class CannonBallEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Instantiate(effect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }
