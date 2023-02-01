@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class IsleController : MonoBehaviour
 {
+    private Transform target;
     private Renderer isleRenderer;
-    private bool hasAppeared = false;
 
     private void Start()
     {
         isleRenderer = GetComponentInChildren<Renderer>();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void LateUpdate()
     {
-        if (isleRenderer.isVisible)
-            hasAppeared = true;
-        if (!isleRenderer.isVisible && hasAppeared)
+        if (!isleRenderer.isVisible && target.position.y - 10 > gameObject.transform.position.y )
             Destroy(gameObject);
     }
 }

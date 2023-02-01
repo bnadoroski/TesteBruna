@@ -23,7 +23,10 @@ public class CannonBall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Instantiate(effect, transform.position, transform.rotation);
-        Destroy(gameObject);
+        if (!collision.CompareTag("Player"))
+        {
+            Instantiate(effect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
 }

@@ -34,12 +34,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    public void Options()
-    {
-        optionsScreen.SetActive(true);
-        mainMenuScreen.SetActive(false);
-    }
-
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -50,6 +44,10 @@ public class GameManager : MonoBehaviour
         Destroy(pathfinding.GetComponent<ProceduralGridMover>());
         gameOverScreen.SetActive(true);
         finalScoreText.text = string.Format("Score: {0}", score);
+    }
+
+    public void SetTimes()
+    {
 
     }
 }

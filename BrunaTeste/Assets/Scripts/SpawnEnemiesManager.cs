@@ -25,8 +25,8 @@ public class SpawnEnemiesManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        InvokeRepeating("SpawnShooterEnemies", shooterSpawnTimer, shooterSpawnTimer);
-        InvokeRepeating("SpawnChaserEnemies", chaserSpawnTimer, chaserSpawnTimer);
+        InvokeRepeating("SpawnShooterEnemies", 0.1f, shooterSpawnTimer);
+        InvokeRepeating("SpawnChaserEnemies", 0.1f, chaserSpawnTimer);
     }
 
     void SpawnShooterEnemies()

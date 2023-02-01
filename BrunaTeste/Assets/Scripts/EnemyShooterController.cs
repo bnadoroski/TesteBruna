@@ -23,7 +23,10 @@ public class EnemyShooterController : MonoBehaviour
     int maxHealth = 30;
     [SerializeField]
     HealthBar healthBar;
-
+    [SerializeField]
+    Sprite lowLifeSprite;
+    [SerializeField]
+    Sprite mediumLifeSprite;
 
     Path path;
     int currentWayPoint = 0;
@@ -107,10 +110,17 @@ public class EnemyShooterController : MonoBehaviour
 
         if (collision.CompareTag("CannonBall"))
         {
-            currentHealth = healthBar.TakeDamage(10, currentHealth, gameObject); 
+            currentHealth = healthBar.TakeDamage(10, currentHealth, gameObject);
+
+            if (currentHealth < (maxHealth * 0.6f))
+            {
+                enemyGraphic.GetComponent<SpriteRenderer>().sprite = mediumLifeSprite;
+            }
+
             if (currentHealth <= 0)
             {
-                explosionEffect.GetComponent<EnemiesEffectsController>().EnableEffect();
+                enemyGraphic.GetComponent<SpriteRenderer>().sprite = lowLifeSprite;
+                explosionEffect.GetComponent<EnemyEffectsController>().EnableEffect();
                 Destroy(gameObject, 0.3f);
                 target.GetComponent<PlayerController>().AddScore();
             }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemiesEffectsController : MonoBehaviour
+public class EnemyEffectsController : MonoBehaviour
 {
     public void EnableEffect()
     {

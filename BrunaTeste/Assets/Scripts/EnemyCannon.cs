@@ -10,6 +10,8 @@ public class EnemyCannon : MonoBehaviour
     GameObject enemyCannonBall;
     [SerializeField]
     float fireRate;
+    [SerializeField]
+    GameObject cannonEffect;
 
     float nextFireTime;
 
@@ -17,6 +19,7 @@ public class EnemyCannon : MonoBehaviour
     {
         if (nextFireTime < Time.time)
         {
+            cannonEffect.GetComponent<EnemyEffectsController>().EnableEffect();
             Instantiate(enemyCannonBall, transformSpawnBall.position, Quaternion.identity);
             nextFireTime = Time.time + fireRate;
         }

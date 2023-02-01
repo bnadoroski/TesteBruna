@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     GameObject playerEffect;
     [SerializeField]
     GameObject gameManager;
+    [SerializeField]
+    Sprite lowLifeSprite;
+    [SerializeField]
+    Sprite mediumLifeSprite;
     [SerializeField] 
     TMP_Text scoreText;
     Vector2 moveInput;
@@ -45,27 +49,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb2D.velocity = -1 * transform.up * Mathf.Clamp01(moveInput.y) * Time.deltaTime * moveSpeed;
+        if (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 270)
+            rb2D.velocity = -1 * transform.up * Mathf.Clamp01(moveInput.y) * Time.deltaTime * moveSpeed;
+        else
+            rb2D.velocity = new Vector2(0.01f, 0.01f);
+
         RotatePlayer();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("CannonBallEnemy") )
-        {
-            CalculateDamage(GameManager.EnemyType.Shooter);
-        }
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        if (collision.gameObject.CompareTag("EnemyChaser"))
-        {
-            collision.gameObject.GetComponent<EnemyChaserController>().DestroyChaser();
-            CalculateDamage(GameManager.EnemyType.Chaser);
-        }
     }
 
     private void CalculateDamage(GameManager.EnemyType enemy)
@@ -85,11 +74,18 @@ public class PlayerController : MonoBehaviour
         }
 
         currentHealth = healthBar.TakeDamage(damage, currentHealth, gameObject);
+
+        if (currentHealth < (maxHealth * 0.6f))
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = mediumLifeSprite;
+        }
+
         if (currentHealth <= 0)
         {
+            gameObject.GetComponent<SpriteRenderer>().sprite = lowLifeSprite;
             playerEffect.GetComponent<PlayerEffectsController>().EnableEffect();
-            gameManager.GetComponent<GameManager>().GameOver(score);
             Destroy(gameObject, 0.3f);
+            gameManager.GetComponent<GameManager>().GameOver(score);
         }
     }
 
@@ -103,5 +99,25 @@ public class PlayerController : MonoBehaviour
     {
         score++;
         scoreText.text = string.Format("Score: {0}", score);
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("CannonBallEnemy"))
+        {
+            CalculateDamage(GameManager.EnemyType.Shooter);
+        }
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.CompareTag("EnemyChaser"))
+        {
+            collision.gameObject.GetComponent<EnemyChaserController>().DestroyChaser();
+            CalculateDamage(GameManager.EnemyType.Chaser);
+        }
     }
 }

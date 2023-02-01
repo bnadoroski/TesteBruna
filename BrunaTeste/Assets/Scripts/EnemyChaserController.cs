@@ -22,6 +22,10 @@ public class EnemyChaserController : MonoBehaviour
     int maxHealth = 30;
     [SerializeField]
     HealthBar healthBar;
+    [SerializeField]
+    Sprite lowLifeSprite;
+    [SerializeField]
+    Sprite mediumLifeSprite;
 
     Path path;
     int currentWayPoint = 0;
@@ -100,7 +104,7 @@ public class EnemyChaserController : MonoBehaviour
     public void DestroyChaser()
     {
         Destroy(gameObject, 0.3f);
-        explosionEffect.GetComponent<EnemiesEffectsController>().EnableEffect();
+        explosionEffect.GetComponent<EnemyEffectsController>().EnableEffect();
         target.GetComponent<PlayerController>().AddScore();
     }
 
@@ -109,8 +113,15 @@ public class EnemyChaserController : MonoBehaviour
         if (collision.CompareTag("CannonBall"))
         {
             currentHealth = healthBar.TakeDamage(10, currentHealth, gameObject);
-            if(currentHealth <= 0)
+
+            if (currentHealth < (maxHealth * 0.5f))
             {
+                enemyGraphic.GetComponent<SpriteRenderer>().sprite = mediumLifeSprite;
+            }
+
+            if (currentHealth <= 0)
+            {
+                enemyGraphic.GetComponent<SpriteRenderer>().sprite = lowLifeSprite;
                 DestroyChaser();
             }
         }
