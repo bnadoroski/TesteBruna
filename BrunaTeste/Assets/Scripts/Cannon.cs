@@ -19,10 +19,15 @@ public class Cannon : MonoBehaviour
     [SerializeField]
     float fireRateSides;
 
+    Animator recoilAnimator;
     float nextFireTime;
     float nextFireTimeE;
     float nextFireTimeSQ;
 
+    private void Start()
+    {
+        recoilAnimator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -39,6 +44,7 @@ public class Cannon : MonoBehaviour
                 cannonEffect.GetComponent<PlayerEffectsController>().EnableEffect();
                 Instantiate(cannonBall, transformSpawnBall.position, transform.rotation);
                 nextFireTime = Time.time + fireRate;
+                recoilAnimator.SetTrigger("Shoot");
             }
 
         }

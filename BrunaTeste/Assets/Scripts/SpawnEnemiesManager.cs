@@ -13,20 +13,23 @@ public class SpawnEnemiesManager : MonoBehaviour
     [SerializeField] 
     GameObject chaser;
     [SerializeField]
-    float shooterSpawnTimer;
-    [SerializeField]
-    float chaserSpawnTimer;
+    float spawnEnemiesTime;
 
     GameObject player;
     float minWidth = -10f;
     float maxWidth = 10f;
 
+    private void Awake()
+    {
+        spawnEnemiesTime = GameManager.instance?.spawnEnemyTime ?? 10f;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        InvokeRepeating("SpawnShooterEnemies", 0.1f, shooterSpawnTimer);
-        InvokeRepeating("SpawnChaserEnemies", 0.1f, chaserSpawnTimer);
+        InvokeRepeating("SpawnShooterEnemies", 0.1f, spawnEnemiesTime);
+        InvokeRepeating("SpawnChaserEnemies", 0.1f, spawnEnemiesTime);
     }
 
     void SpawnShooterEnemies()

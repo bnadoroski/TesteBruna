@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 2972037035916185886}
   - component: {fileID: 2972037035916185885}
   - component: {fileID: 2972037035916185884}
+  - component: {fileID: 6327621529850524327}
   m_Layer: 6
   m_Name: cannonLoose
   m_TagString: EnemyCannon
@@ -212,6 +213,26 @@ MonoBehaviour:
   enemyCannonBall: {fileID: 2087345017363726008, guid: ec1749fac78a756468e2f085d21cef9e, type: 3}
   fireRate: 1.5
   cannonEffect: {fileID: 8565703723561742176}
+--- !u!95 &6327621529850524327
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2972037035916185887}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 90dac59038b165f448ff2f9c1c6a5d13, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &2972037037191442318
 GameObject:
   m_ObjectHideFlags: 0

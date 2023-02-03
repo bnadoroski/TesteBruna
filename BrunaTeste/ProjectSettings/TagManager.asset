@@ -13,6 +13,7 @@ TagManager:
   - Isle
   - Background
   - GameWall
+  - Interface
   layers:
   - Default
   - TransparentFX

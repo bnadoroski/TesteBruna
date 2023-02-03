@@ -10,12 +10,13 @@ public class IsleController : MonoBehaviour
     private void Start()
     {
         isleRenderer = GetComponentInChildren<Renderer>();
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     private void LateUpdate()
     {
-        if (!isleRenderer.isVisible && target.position.y - 10 > gameObject.transform.position.y )
-            Destroy(gameObject);
+        if(isleRenderer != null && target != null)
+            if (!isleRenderer.isVisible && target.position.y - 10 > gameObject.transform.position.y)
+                Destroy(gameObject);
     }
 }

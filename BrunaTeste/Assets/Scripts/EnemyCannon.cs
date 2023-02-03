@@ -13,7 +13,13 @@ public class EnemyCannon : MonoBehaviour
     [SerializeField]
     GameObject cannonEffect;
 
+    Animator recoilAnimator;
     float nextFireTime;
+
+    private void Start()
+    {
+        recoilAnimator = GetComponent<Animator>();
+    }
 
     public void EnemyShoot()
     {
@@ -22,6 +28,7 @@ public class EnemyCannon : MonoBehaviour
             cannonEffect.GetComponent<EnemyEffectsController>().EnableEffect();
             Instantiate(enemyCannonBall, transformSpawnBall.position, Quaternion.identity);
             nextFireTime = Time.time + fireRate;
+            recoilAnimator.SetTrigger("Shoot");
         }
     }
 }

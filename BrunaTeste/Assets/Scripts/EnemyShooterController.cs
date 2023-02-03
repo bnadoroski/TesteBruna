@@ -28,6 +28,8 @@ public class EnemyShooterController : MonoBehaviour
     [SerializeField]
     Sprite mediumLifeSprite;
 
+
+    InterfaceController uiController;
     Path path;
     int currentWayPoint = 0;
     int currentHealth;
@@ -38,6 +40,7 @@ public class EnemyShooterController : MonoBehaviour
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        uiController = GameObject.FindGameObjectWithTag("Interface")?.GetComponent<InterfaceController>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
@@ -117,12 +120,12 @@ public class EnemyShooterController : MonoBehaviour
                 enemyGraphic.GetComponent<SpriteRenderer>().sprite = mediumLifeSprite;
             }
 
-            if (currentHealth <= 0)
+            if (currentHealth == 0)
             {
                 enemyGraphic.GetComponent<SpriteRenderer>().sprite = lowLifeSprite;
                 explosionEffect.GetComponent<EnemyEffectsController>().EnableEffect();
                 Destroy(gameObject, 0.3f);
-                target.GetComponent<PlayerController>().AddScore();
+                uiController.AddScore();
             }
         }
     }

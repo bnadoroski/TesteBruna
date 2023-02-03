@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,17 +19,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GameObject playerEffect;
     [SerializeField]
-    GameObject gameManager;
-    [SerializeField]
     Sprite lowLifeSprite;
     [SerializeField]
     Sprite mediumLifeSprite;
-    [SerializeField] 
-    TMP_Text scoreText;
+    [SerializeField]
+    GamePlayManager gamePlayManager;
     Vector2 moveInput;
     Rigidbody2D rb2D;
     int currentHealth;
-    int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -57,15 +53,15 @@ public class PlayerController : MonoBehaviour
         RotatePlayer();
     }
 
-    private void CalculateDamage(GameManager.EnemyType enemy)
+    private void CalculateDamage(GamePlayManager.EnemyType enemy)
     {
         int damage;
         switch (enemy)
         {
-            case GameManager.EnemyType.Shooter:
+            case GamePlayManager.EnemyType.Shooter:
                 damage = EnemyShootDamage;
                 break;
-            case GameManager.EnemyType.Chaser:
+            case GamePlayManager.EnemyType.Chaser:
                 damage = EnemyChaseDamage;
                 break;
             default:
@@ -80,12 +76,12 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().sprite = mediumLifeSprite;
         }
 
-        if (currentHealth <= 0)
+        if (currentHealth == 0)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = lowLifeSprite;
             playerEffect.GetComponent<PlayerEffectsController>().EnableEffect();
+            gamePlayManager.GameOver();
             Destroy(gameObject, 0.3f);
-            gameManager.GetComponent<GameManager>().GameOver(score);
         }
     }
 
@@ -95,18 +91,11 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.forward * rotation);
     }
 
-    public void AddScore()
-    {
-        score++;
-        scoreText.text = string.Format("Score: {0}", score);
-    }
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("CannonBallEnemy"))
         {
-            CalculateDamage(GameManager.EnemyType.Shooter);
+            CalculateDamage(GamePlayManager.EnemyType.Shooter);
         }
 
     }
@@ -117,7 +106,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("EnemyChaser"))
         {
             collision.gameObject.GetComponent<EnemyChaserController>().DestroyChaser();
-            CalculateDamage(GameManager.EnemyType.Chaser);
+            CalculateDamage(GamePlayManager.EnemyType.Chaser);
         }
     }
 }
