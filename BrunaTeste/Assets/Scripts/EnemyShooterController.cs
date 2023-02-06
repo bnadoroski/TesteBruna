@@ -113,8 +113,11 @@ public class EnemyShooterController : MonoBehaviour
     private void LateUpdate()
     {
         if (enemyRenderer != null && target != null)
-            if (!enemyRenderer.isVisible && target.position.y - 20 > gameObject.transform.position.y)
+        {
+            float distance = target.position.y - gameObject.transform.position.y;
+            if (!enemyRenderer.isVisible && distance > 20)
                 Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -5,57 +5,73 @@ using UnityEngine;
 public class SpawnIsleManager : MonoBehaviour
 {
     [SerializeField]
-    float isleSpawnTimer;
-    [SerializeField]
     List<GameObject> isles;
+    [SerializeField]
+    List<Transform> spawnPoints;
+    [SerializeField]
+    float distanceToAnotherSpawn;
 
-    RaycastHit2D[] raycasts;
     GameObject player;
-    float minWidth = -10f;
-    float maxWidth = 14f;
+    float distanceRemaining;
+    List<int> spawnControll;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        InvokeRepeating("SpawnIsles", 0.2f, isleSpawnTimer);
+        distanceRemaining = player.transform.position.y + distanceToAnotherSpawn;
+        spawnControll = new List<int>();
+        Invoke("SpawnIsles", 0f);
+    }
+
+    private void Update()
+    {
+        if (player.transform.position.y >= distanceRemaining)
+            Invoke("SpawnIsles", 0f);
+
     }
 
     public void SpawnIsles()
     {
         if (player != null)
         {
-            GameObject isle = isles[Random.Range(0, 3)];
-            Vector3 spawnPosition = GenerateSpawnPosition();
-            if (CanSpawn(spawnPosition, isle.transform.position))
-                Instantiate(isle, spawnPosition, Quaternion.identity);
-            else
-                SpawnIsles();
-        }
-    }
+            int quantityIsleSpawn = Random.Range(1, 4);
 
-    private Vector3 GenerateSpawnPosition()
-    {
-        Vector3 spawnPosition = transform.position;
-        spawnPosition.x = Random.Range(minWidth, maxWidth);
-
-        return spawnPosition;
-    }
-
-    private bool CanSpawn(Vector2 position, Vector2 islePosition)
-    {
-        raycasts = Physics2D.RaycastAll(position + new Vector2(10, 10), islePosition);
-        if (raycasts.Length > 0)
-        {
-            foreach (var item in raycasts)
+            for (int i = 0; i < quantityIsleSpawn; i++)
             {
-               if(item.collider != null)
-                {
-                    print(item.collider.name);
-                }
-            }
-            return false;
-        }
+                GameObject isle = isles[Random.Range(0, 3)];
+                Vector3 spawnPosition = GenerateSpawnPosition();
+                Instantiate(isle, spawnPosition, Quaternion.identity);
 
-        return true;
+                distanceRemaining = player.transform.position.y + distanceToAnotherSpawn;
+                i++;
+            }
+
+            spawnControll = new List<int>();
+        }
+    }
+
+    public Vector3 GenerateSpawnPosition()
+    {
+        int index;
+        if (spawnControll.Count > 0)
+        {
+            index = Random.Range(0, spawnPoints.Count);
+            if (spawnControll.Contains(index))
+            {
+                if (!spawnControll.Contains(1))
+                    index = 0;
+                else if (!spawnControll.Contains(2))
+                    index = 1;
+                else if (!spawnControll.Contains(3))
+                    index = 2;
+                else
+                    index = 3;
+            }
+        }
+        else
+            index = Random.Range(0, spawnPoints.Count); 
+
+        spawnControll.Add(index);
+        return spawnPoints[index].position;
     }
 }

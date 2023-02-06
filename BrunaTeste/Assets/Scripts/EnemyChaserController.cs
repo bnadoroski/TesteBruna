@@ -27,7 +27,6 @@ public class EnemyChaserController : MonoBehaviour
     [SerializeField]
     Sprite mediumLifeSprite;
 
-
     InterfaceController uiController;
     Path path;
     int currentWayPoint = 0;
@@ -112,8 +111,11 @@ public class EnemyChaserController : MonoBehaviour
     private void LateUpdate()
     {
         if (enemyRenderer != null && target != null)
-            if (!enemyRenderer.isVisible && target.position.y - 20 > gameObject.transform.position.y)
+        {
+            float distance = target.position.y - gameObject.transform.position.y;
+            if (!enemyRenderer.isVisible && distance > 20)
                 Destroy(gameObject);
+        }
     }
 
     public void DestroyChaser()
