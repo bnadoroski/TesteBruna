@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CannonBallEnemy : MonoBehaviour
@@ -11,7 +10,7 @@ public class CannonBallEnemy : MonoBehaviour
 
     Rigidbody2D cannonBallRb2d;
     GameObject target;
-    // Start is called before the first frame update
+
     void Start()
     {
         cannonBallRb2d = GetComponent<Rigidbody2D>();
@@ -30,7 +29,10 @@ public class CannonBallEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Instantiate(effect, transform.position, transform.rotation);
-        Destroy(gameObject);
+        if (!collision.CompareTag("Enemy"))
+        {
+            Instantiate(effect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
     }
 }

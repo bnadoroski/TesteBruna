@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1575106198040859244}
   m_Layer: 0
   m_Name: EnemyShooter
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,6 +293,7 @@ MonoBehaviour:
   healthBar: {fileID: 3391533881674365010}
   lowLifeSprite: {fileID: 21300000, guid: 6f181637de439c947b53bfbc481c9455, type: 3}
   mediumLifeSprite: {fileID: 21300000, guid: 71cc44e1b2fd14c4a8576e7cec878aad, type: 3}
+  distanceDestroyNotVisible: 20
 --- !u!70 &2972037037191442313
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -160,6 +160,7 @@ MonoBehaviour:
   healthBar: {fileID: 1738092720587746518}
   lowLifeSprite: {fileID: 21300000, guid: 490ee3d3da4fba3469b09a7509b38bcd, type: 3}
   mediumLifeSprite: {fileID: 21300000, guid: 0f621054c77264042a6a5918776b8a7e, type: 3}
+  destroyIfNotVisible: 20
 --- !u!50 &2701928121066440671
 Rigidbody2D:
   serializedVersion: 4
@@ -430,7 +431,7 @@ GameObject:
   - component: {fileID: 5276995577402343037}
   m_Layer: 0
   m_Name: EnemyChaser
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

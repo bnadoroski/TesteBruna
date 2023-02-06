@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ public class Cannon : MonoBehaviour
     Animator recoilAnimator;
     float nextFireTime;
     float nextFireTimeE;
-    float nextFireTimeSQ;
+    float nextFireTimeQ;
 
     private void Start()
     {
@@ -40,13 +39,11 @@ public class Cannon : MonoBehaviour
         {
             if (nextFireTime < Time.time)
             {
-                cannonBall.GetComponent<CannonBall>().Shoot(Vector3.right);
                 cannonEffect.GetComponent<PlayerEffectsController>().EnableEffect();
-                Instantiate(cannonBall, transformSpawnBall.position, transform.rotation);
+                InstantiateShoot(Vector3.right, transformSpawnBall.position);
                 nextFireTime = Time.time + fireRate;
                 recoilAnimator.SetTrigger("Shoot");
             }
-
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -55,8 +52,7 @@ public class Cannon : MonoBehaviour
             {
                 foreach (Transform spawn in transformSpawnSpecialBallRight)
                 {
-                    cannonBall.GetComponent<CannonBall>().Shoot(Vector3.down);
-                    Instantiate(cannonBall, spawn.position, transform.rotation);
+                    InstantiateShoot(Vector3.down, spawn.position);
                     nextFireTimeE = Time.time + fireRateSides;
                 }
             }
@@ -64,15 +60,20 @@ public class Cannon : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (nextFireTimeSQ < Time.time)
+            if (nextFireTimeQ < Time.time)
             {
                 foreach (Transform spawn in transformSpawnSpecialBallLeft)
                 {
-                    cannonBall.GetComponent<CannonBall>().Shoot(Vector3.up);
-                    Instantiate(cannonBall, spawn.position, transform.rotation);
-                    nextFireTimeSQ = Time.time + fireRateSides;
+                    InstantiateShoot(Vector3.up, spawn.position);
+                    nextFireTimeQ = Time.time + fireRateSides;
                 }
             }
         }
+    }
+
+    void InstantiateShoot(Vector3 direction, Vector3 position)
+    {
+        cannonBall.GetComponent<CannonBall>().Shoot(direction);
+        Instantiate(cannonBall, position, transform.rotation);
     }
 }

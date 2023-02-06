@@ -810,6 +810,7 @@ MonoBehaviour:
   scoreText: {fileID: 1329973003}
   timerText: {fileID: 822395425}
   gamePlayManager: {fileID: 923673061}
+  timerDefault: 2
 --- !u!1 &225182907
 GameObject:
   m_ObjectHideFlags: 0
@@ -2467,7 +2468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5903133154586012590, guid: 599c82ce913e6cf41a4e5d671e91f8e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.96
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 5903133154586012590, guid: 599c82ce913e6cf41a4e5d671e91f8e1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3378,7 +3379,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035469614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: 15.39, z: 0}
+  m_LocalPosition: {x: 0.01, y: 8.59, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6315,7 +6316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5903133154586012590, guid: 599c82ce913e6cf41a4e5d671e91f8e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.153944
+      value: -4.32
       objectReference: {fileID: 0}
     - target: {fileID: 5903133154586012590, guid: 599c82ce913e6cf41a4e5d671e91f8e1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6461,7 +6462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5903133154586012590, guid: 599c82ce913e6cf41a4e5d671e91f8e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.96
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 5903133154586012590, guid: 599c82ce913e6cf41a4e5d671e91f8e1, type: 3}
       propertyPath: m_LocalPosition.z

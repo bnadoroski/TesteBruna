@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -24,11 +22,11 @@ public class PlayerController : MonoBehaviour
     Sprite mediumLifeSprite;
     [SerializeField]
     GamePlayManager gamePlayManager;
+
     Vector2 moveInput;
     Rigidbody2D rb2D;
     int currentHealth;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();
@@ -36,7 +34,6 @@ public class PlayerController : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
     }
 
-    // Update is called once per frame
     void Update()
     {
         moveInput.x = Input.GetAxis("Horizontal");

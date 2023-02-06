@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -11,13 +9,15 @@ public class InterfaceController : MonoBehaviour
     TMP_Text timerText;
     [SerializeField]
     GamePlayManager gamePlayManager;
+    [SerializeField]
+    float timerDefault;
 
     static int score = 0;
     float timer = 10;
 
     private void Awake()
     {
-        timer = (GameManager.instance?.gameSessionTime ?? 2f) * 60;
+        timer = (GameManager.instance?.gameSessionTime ?? timerDefault) * 60;
     }
 
     void Update()

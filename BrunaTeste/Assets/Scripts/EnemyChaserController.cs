@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
@@ -26,6 +24,8 @@ public class EnemyChaserController : MonoBehaviour
     Sprite lowLifeSprite;
     [SerializeField]
     Sprite mediumLifeSprite;
+    [SerializeField]
+    float distanceDestroyNotVisible;
 
     InterfaceController uiController;
     Path path;
@@ -46,7 +46,7 @@ public class EnemyChaserController : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
-        InvokeRepeating("UpdatePath", 0f, 0.5f);
+        InvokeRepeating("UpdatePath", 0f, 0.3f);
     }
 
     void UpdatePath()
@@ -67,9 +67,7 @@ public class EnemyChaserController : MonoBehaviour
     void FixedUpdate()
     {
         if (path == null)
-        {
             return;
-        }
 
         if (target != null)
         {
@@ -85,6 +83,7 @@ public class EnemyChaserController : MonoBehaviour
                 if (distanceFromPlayer <= increaseSpeedZone)
                 {
                     rb.drag = 0;
+                    speed *= 2;
                 } else
                 {
                     rb.drag = 1.5f;
@@ -95,9 +94,7 @@ public class EnemyChaserController : MonoBehaviour
                 rb.AddForce(force);
             }
             else
-            {
                 return;
-            }
 
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWayPoint]);
 
@@ -113,7 +110,7 @@ public class EnemyChaserController : MonoBehaviour
         if (enemyRenderer != null && target != null)
         {
             float distance = target.position.y - gameObject.transform.position.y;
-            if (!enemyRenderer.isVisible && distance > 20)
+            if (!enemyRenderer.isVisible && distance > distanceDestroyNotVisible)
                 Destroy(gameObject);
         }
     }

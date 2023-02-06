@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,8 +24,11 @@ public class SpawnIsleManager : MonoBehaviour
 
     private void Update()
     {
-        if (player.transform.position.y >= distanceRemaining)
-            Invoke("SpawnIsles", 0f);
+        if (player != null)
+        {
+            if (player.transform.position.y >= distanceRemaining)
+                Invoke("SpawnIsles", 0f);
+        }
 
     }
 

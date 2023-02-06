@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FIxedHealthBar : MonoBehaviour
@@ -11,7 +9,7 @@ public class FIxedHealthBar : MonoBehaviour
     {
         if (target != null)
         {
-            if (target.tag == "Player")
+            if (target.CompareTag("Player"))
                 transform.position = target.position + transform.up * -1f;
             else
                 transform.position = target.position + transform.up;

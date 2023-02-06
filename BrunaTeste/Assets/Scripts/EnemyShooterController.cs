@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
@@ -27,6 +25,8 @@ public class EnemyShooterController : MonoBehaviour
     Sprite lowLifeSprite;
     [SerializeField]
     Sprite mediumLifeSprite;
+    [SerializeField]
+    float distanceDestroyNotVisible;
 
 
     InterfaceController uiController;
@@ -48,7 +48,7 @@ public class EnemyShooterController : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
-        InvokeRepeating("UpdatePath", 0f, 0.5f);
+        InvokeRepeating("UpdatePath", 0f, 0.3f);
     }
 
     void UpdatePath()
@@ -69,9 +69,7 @@ public class EnemyShooterController : MonoBehaviour
     void FixedUpdate()
     {
         if (path == null)
-        {
             return;
-        }
 
         if (target != null)
         {
@@ -92,9 +90,7 @@ public class EnemyShooterController : MonoBehaviour
                     rb.AddForce(force);
                 }
                 else
-                {
                     enemyCannon.GetComponent<EnemyCannon>().EnemyShoot();
-                }
             }
             else
             {
@@ -115,7 +111,7 @@ public class EnemyShooterController : MonoBehaviour
         if (enemyRenderer != null && target != null)
         {
             float distance = target.position.y - gameObject.transform.position.y;
-            if (!enemyRenderer.isVisible && distance > 20)
+            if (!enemyRenderer.isVisible && distance > distanceDestroyNotVisible)
                 Destroy(gameObject);
         }
     }
