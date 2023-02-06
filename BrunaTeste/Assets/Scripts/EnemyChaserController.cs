@@ -35,10 +35,12 @@ public class EnemyChaserController : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
     Transform target;
+    Renderer enemyRenderer;
 
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        enemyRenderer = GetComponentInChildren<Renderer>();
         uiController = GameObject.FindGameObjectWithTag("Interface")?.GetComponent<InterfaceController>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
@@ -84,6 +86,9 @@ public class EnemyChaserController : MonoBehaviour
                 if (distanceFromPlayer <= increaseSpeedZone)
                 {
                     rb.drag = 0;
+                } else
+                {
+                    rb.drag = 1.5f;
                 }
 
                 Vector2 direction = ((Vector2)path.vectorPath[currentWayPoint] - rb.position).normalized;
@@ -102,6 +107,13 @@ public class EnemyChaserController : MonoBehaviour
                 currentWayPoint++;
             } 
         }
+    }
+
+    private void LateUpdate()
+    {
+        if (enemyRenderer != null && target != null)
+            if (!enemyRenderer.isVisible && target.position.y - 20 > gameObject.transform.position.y)
+                Destroy(gameObject);
     }
 
     public void DestroyChaser()

@@ -36,10 +36,12 @@ public class EnemyShooterController : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
     Transform target;
+    Renderer enemyRenderer;
 
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        enemyRenderer = GetComponentInChildren<Renderer>();
         uiController = GameObject.FindGameObjectWithTag("Interface")?.GetComponent<InterfaceController>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
@@ -106,6 +108,13 @@ public class EnemyShooterController : MonoBehaviour
                 currentWayPoint++;
             }
         }
+    }
+
+    private void LateUpdate()
+    {
+        if (enemyRenderer != null && target != null)
+            if (!enemyRenderer.isVisible && target.position.y - 20 > gameObject.transform.position.y)
+                Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

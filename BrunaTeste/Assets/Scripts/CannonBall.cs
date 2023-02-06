@@ -10,10 +10,16 @@ public class CannonBall : MonoBehaviour
     ParticleSystem effect;
     public Vector3 shootDirection;
 
-    // Update is called once per frame
     void Update()
     {
-        transform.Translate(shootDirection * Time.deltaTime * speed);
+        transform.Translate(shootDirection * Time.deltaTime * speed); 
+        StartCoroutine(DestructAfterTime());
+    }
+
+    IEnumerator DestructAfterTime()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
     }
 
     public void Shoot(Vector3 changeShootDirection)

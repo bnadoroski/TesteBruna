@@ -29,7 +29,7 @@ public class MainManager : MonoBehaviour
 
     public void SetGameSessionTime(float gameTime)
     {
-        gameTime = gameTime == 0 ? 1f : gameTime;
+        gameTime = gameTime == 0 ? 2f : gameTime;
         gameSessionText.text = string.Format("{0} minute{1}", gameTime, gameTime > 1 ? "s" : "");
         gameSessionSlider.value = gameTime;
         GameManager.instance.gameSessionTime = gameTime;

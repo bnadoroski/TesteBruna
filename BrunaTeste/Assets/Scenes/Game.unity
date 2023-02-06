@@ -427,7 +427,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: cf7c38b32bb3fa54b9369a97ffa61228, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2283,10 +2283,10 @@ RectTransform:
   m_Father: {fileID: 203567594}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &813376682
 GameObject:
@@ -2384,12 +2384,24 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.146
+      value: -1.147
       objectReference: {fileID: 0}
     - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.56
+      value: -0.548
       objectReference: {fileID: 0}
     - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2397,19 +2409,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.70030326
       objectReference: {fileID: 0}
     - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.71384543
       objectReference: {fileID: 0}
     - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2421,7 +2433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7148393476849615302, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -91.097
       objectReference: {fileID: 0}
     - target: {fileID: 7148393476849615303, guid: b7b4d15d17ea50244aef8746e20e51f3, type: 3}
       propertyPath: m_Name
@@ -3266,8 +3278,6 @@ MonoBehaviour:
   - {fileID: 7934203906264389053, guid: 969f845c229590e4192782c8dedc5640, type: 3}
   - {fileID: 8525738996881969533, guid: 19d873a835ef83c4db7e451148ec5280, type: 3}
   - {fileID: 1980401819557407538, guid: 9702b5568c2d9894ab62085d93c70da8, type: 3}
-  colliders: []
-  radius: 40
 --- !u!1 &1048051401
 GameObject:
   m_ObjectHideFlags: 0
@@ -4999,7 +5009,7 @@ MonoBehaviour:
   - {fileID: 1852682974}
   shooter: {fileID: 1575106198040859247, guid: 41c5cbe6f4d83ff449b900350e62f25f, type: 3}
   chaser: {fileID: 5606051331694847487, guid: a740ed720b399a74ab159ac4e1348c22, type: 3}
-  spawnEnemiesTime: 0
+  spawnEnemiesTime: 10
 --- !u!1001 &1622929251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6742,7 +6752,7 @@ GameObject:
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1981737290
 Transform:
   m_ObjectHideFlags: 0
@@ -6824,7 +6834,7 @@ SpriteRenderer:
   m_FlipX: 1
   m_FlipY: 1
   m_DrawMode: 0
-  m_Size: {x: 0.171875, y: 0.421875}
+  m_Size: {x: 0.28125, y: 0.609375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -7034,7 +7044,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1024, y: 383}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2096276147
 MonoBehaviour:

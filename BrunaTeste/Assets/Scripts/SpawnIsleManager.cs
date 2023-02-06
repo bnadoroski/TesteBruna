@@ -8,13 +8,9 @@ public class SpawnIsleManager : MonoBehaviour
     float isleSpawnTimer;
     [SerializeField]
     List<GameObject> isles;
-    [SerializeField]
-    Collider2D[] colliders;
-    [SerializeField]
-    float radius;
 
+    RaycastHit2D[] raycasts;
     GameObject player;
-
     float minWidth = -10f;
     float maxWidth = 14f;
 
@@ -24,49 +20,42 @@ public class SpawnIsleManager : MonoBehaviour
         InvokeRepeating("SpawnIsles", 0.2f, isleSpawnTimer);
     }
 
-    private bool PreventSpawnOverLap(Vector3 spawnPosition)
-    {
-        colliders = Physics2D.OverlapCircleAll(transform.position, radius);
-
-        foreach (Collider2D collider in colliders)
-        {
-            Vector3 centerPoint = collider.bounds.center;
-            float width = collider.bounds.center.x;
-            float height = collider.bounds.center.y;
-
-            float leftExtend = centerPoint.x - width;
-            float rightExtend = centerPoint.x + width;
-            float lowerExtent = centerPoint.y - height;
-            float upperExtent = centerPoint.y + height;
-
-            if (spawnPosition.x >= leftExtend && spawnPosition.x <= rightExtend)
-            {
-                if(spawnPosition.y >= lowerExtent && spawnPosition.y <= upperExtent) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     public void SpawnIsles()
     {
         if (player != null)
         {
-            bool canSpawnHere = false;
-            Vector3 spawnPosition = transform.position;
-            while (!canSpawnHere) {
-                float spawnPositionX = Random.Range(minWidth, maxWidth);
-                spawnPosition = new Vector3(spawnPositionX, transform.position.y, transform.position.z);
-                canSpawnHere = PreventSpawnOverLap(spawnPosition);
-
-                if (canSpawnHere)
-                    break;
-            }
-
-            Instantiate(isles[Random.Range(0, 3)], spawnPosition, Quaternion.identity);
+            GameObject isle = isles[Random.Range(0, 3)];
+            Vector3 spawnPosition = GenerateSpawnPosition();
+            if (CanSpawn(spawnPosition, isle.transform.position))
+                Instantiate(isle, spawnPosition, Quaternion.identity);
+            else
+                SpawnIsles();
         }
     }
 
+    private Vector3 GenerateSpawnPosition()
+    {
+        Vector3 spawnPosition = transform.position;
+        spawnPosition.x = Random.Range(minWidth, maxWidth);
 
+        return spawnPosition;
+    }
+
+    private bool CanSpawn(Vector2 position, Vector2 islePosition)
+    {
+        raycasts = Physics2D.RaycastAll(position + new Vector2(10, 10), islePosition);
+        if (raycasts.Length > 0)
+        {
+            foreach (var item in raycasts)
+            {
+               if(item.collider != null)
+                {
+                    print(item.collider.name);
+                }
+            }
+            return false;
+        }
+
+        return true;
+    }
 }

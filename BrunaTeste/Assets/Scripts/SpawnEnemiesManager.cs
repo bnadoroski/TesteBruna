@@ -21,10 +21,9 @@ public class SpawnEnemiesManager : MonoBehaviour
 
     private void Awake()
     {
-        spawnEnemiesTime = GameManager.instance?.spawnEnemyTime ?? 10f;
+        spawnEnemiesTime = GameManager.instance?.spawnEnemyTime ?? spawnEnemiesTime;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
